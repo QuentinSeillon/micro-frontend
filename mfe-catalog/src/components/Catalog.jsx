@@ -18,7 +18,6 @@ function ProductCard({ product }) {
       name: product.name,
       price: product.price,
     });
-    console.log(`[EventBus] cart:add ${product.id}, ${product.name}, ${product.price} au clic sur "Ajouter"`);
   };
 
   return (
@@ -42,10 +41,15 @@ function Catalog() {
         <h2>Boutique</h2>
         <span className="mfe-badge">MFE</span>
       </div>
+
       <div className="products-grid">
         {PRODUCTS.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
+      </div>
+
+      <div className="catalog-hint">
+        <p>Cliquez "Ajouter au panier" pour envoyer au Cart MFE !</p>
       </div>
     </div>
   );

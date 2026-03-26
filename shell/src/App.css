@@ -17,34 +17,6 @@ body {
   flex-direction: column;
 }
 
-.cart-toast {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #082f14;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 700;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  animation: toast-in 180ms ease-out;
-}
-
-@keyframes toast-in {
-  from {
-    transform: translateY(-8px);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 .loading-fallback {
   padding: 20px;
   background: #1a1a2e;
@@ -54,15 +26,8 @@ body {
 }
 
 @keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 .shell-content {
@@ -75,6 +40,14 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   max-width: 1400px;
+  margin: 0 auto;
+}
+
+.content-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 24px;
+  max-width: 1600px;
   margin: 0 auto;
 }
 
@@ -92,12 +65,4 @@ body {
   text-align: center;
   color: #64748b;
   font-size: 13px;
-}
-
-@media (max-width: 900px) {
-  .cart-toast {
-    left: 16px;
-    right: 16px;
-    top: 12px;
-  }
 }

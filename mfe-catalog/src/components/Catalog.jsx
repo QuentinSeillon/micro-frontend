@@ -3,17 +3,22 @@ import eventBus from 'shared/eventBus';
 import './Catalog.css';
 
 const PRODUCTS = [
-  { id: 1, name: 'Skin Dragon',    price: 15, image: '🐉' },
-  { id: 2, name: 'Arme Laser',     price: 25, image: '🔫' },
+  { id: 1, name: 'Skin Dragon', price: 15, image: '🐉' },
+  { id: 2, name: 'Arme Laser', price: 25, image: '🔫' },
   { id: 3, name: 'Cape Invisible', price: 30, image: '🧥' },
-  { id: 4, name: 'Bouclier Or',    price: 20, image: '🛡️' },
+  { id: 4, name: 'Bouclier Or', price: 20, image: '🛡️' },
   { id: 5, name: 'Potion Vitesse', price: 10, image: '⚡' },
-  { id: 6, name: 'Casque Viking',  price: 18, image: '⛑️' },
+  { id: 6, name: 'Casque Viking', price: 18, image: '⛑️' },
 ];
 
 function ProductCard({ product }) {
   const handleAddToCart = () => {
-    // TODO: emettre un evenement pour ajouter ce produit au panier
+    eventBus.emit('cart:add', {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+    });
+    console.log(`[EventBus] cart:add ${product.id}, ${product.name}, ${product.price} au clic sur "Ajouter"`);
   };
 
   return (

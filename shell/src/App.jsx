@@ -1,4 +1,5 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
+import eventBus from 'shared/eventBus';
 import './App.css';
 
 const Header = lazy(() => import('mfeHeader/Navbar'));
@@ -10,8 +11,38 @@ function LoadingFallback({ name }) {
 }
 
 function App() {
+  const [cartToast, setCartToast] = useState('');
+  const toastTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    const unsubscribe = eventBus.on('cart:add', (product) => {
+      setCartToast(`${product.name} ajoute au panier (${product.price} EUR)`);
+
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+
+      toastTimeoutRef.current = setTimeout(() => {
+        setCartToast('');
+      }, 2200);
+    });
+
+    return () => {
+      unsubscribe();
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="shell">
+      {cartToast && (
+        <div className="cart-toast" role="status" aria-live="polite">
+          {cartToast}
+        </div>
+      )}
+
       <Suspense fallback={<LoadingFallback name="Header" />}>
         <Header />
       </Suspense>
